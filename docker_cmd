@@ -1,0 +1,16 @@
+
+ ## NOt using docker compose
+docker run -d \
+  -it /bin/bash \
+  --name kharayokha_c\
+  --mount type=bind,source="$(pwd)"/app,target=/app \
+  kharayokha:latest
+docker image build -t kharayokha .
+
+## Easier after using docker compose creating a volumn
+
+Running bash
+docker-compose run kharayoscraper /bin/bash
+docker-compose run kharayoscraper sh -c "scrapy startproject scraper"
+docker-compose run kharayoscraper sh -c "cd scraper && scrapy crawl onlinekhabar"
+
