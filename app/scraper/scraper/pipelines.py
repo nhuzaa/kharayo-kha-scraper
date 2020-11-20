@@ -7,27 +7,33 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import firebase_admin
-from firebase_admin import db
+from firebase_admin import firestore
+
+import datetime
+
 
 class FirebasePipeline:
 
-    collection_name = 'news'
 
     def __init__(self):
-        self.firebase = firebase_admin.initialize_app(options={
-            'databaseURL': 'https://test1kharayo.firebaseio.com'
-         })
+        self.firebase = firebase_admin.initialize_app(options={ 'projectId': 'test1kharayo' })
         print('firebase', self.firebase.name)
-
+        self.collection_name = 'featured_news'
+        print(self.collection_name)
         pass
-    #
+
     def open_spider(self, spider):
         #  CONFIG_FIREBASE = spider.settings.get('CONFIG_FIREBASE')
-        self.db = db.reference(self.collection_name)
+        store = firestore.client()
+        self.db = store.collection(self.collection_name) 
 
     def close_spider(self, spider):
         pass
+
     def process_item(self, item, spider):
-        self.db.push(dict(item))
+        uuid = item['url'].rsplit('/', 1)[-1]
+        x = datetime.datetime.now()
+        date = x.strftime("%m-%d-%Y")
+        self.db.document(spider.name).collection(date).document(uuid).set(dict(item))
         return item
 
