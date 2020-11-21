@@ -6,6 +6,8 @@ services:
       context: .
     volumes:
       - ./app:/app
+    ports:
+      - "5000:80"
     command: >
       sh -c "echo kharayoscraper"
     environment:

@@ -1,3 +1,4 @@
 scrapy
 firebase-admin
-pytz
+fastapi
+uvicorn
