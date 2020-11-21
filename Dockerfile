@@ -17,7 +17,9 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Copy the project source code from the local host to the filesystem of the container at the working directory.
 COPY ./app/scraper /app/
 WORKDIR /app/scraper
+COPY ./jobs.sh ./jobs.sh
  
 # Run the crawler when the container launches.
 # CMD [ "python3", "./go-spider.py" ]
-CMD echo kharayo ayoo...!!
+
+CMD chmod u+x jobs.sh && ./jobs.sh

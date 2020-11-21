@@ -9,7 +9,8 @@ from itemadapter import ItemAdapter
 import firebase_admin
 from firebase_admin import firestore
 
-import datetime
+from datetime import datetime
+import pytz
 
 
 class FirebasePipeline:
@@ -20,20 +21,21 @@ class FirebasePipeline:
         print('firebase', self.firebase.name)
         self.collection_name = 'featured_news'
         print(self.collection_name)
+        self.tz_KTM = pytz.timezone('Asia/Kathmandu')
+
         pass
 
     def open_spider(self, spider):
         #  CONFIG_FIREBASE = spider.settings.get('CONFIG_FIREBASE')
         store = firestore.client()
-        self.db = store.collection(self.collection_name) 
+        self.db = store.collection(self.collection_name)
 
     def close_spider(self, spider):
         pass
 
     def process_item(self, item, spider):
         uuid = item['url'].rsplit('/', 1)[-1]
-        x = datetime.datetime.now()
-        date = x.strftime("%m-%d-%Y")
-        self.db.document(spider.name).collection(date).document(uuid).set(dict(item))
+        time_nepal = datetime.now(self.tz_KTM).strftime("%m-%d-%Y--%H")
+        self.db.document(spider.name).collection(time_nepal).document(uuid).set(dict(item))
         return item
 

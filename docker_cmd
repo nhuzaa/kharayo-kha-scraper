@@ -14,3 +14,10 @@ docker-compose run kharayoscraper /bin/bash
 docker-compose run kharayoscraper sh -c "scrapy startproject scraper"
 docker-compose run kharayoscraper sh -c "cd scraper && scrapy crawl onlinekhabar"
 
+
+# Heroku Deployment
+
+heroku container:login
+heroku container:push web
+heroku container:release web
+
