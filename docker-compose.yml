@@ -7,9 +7,7 @@ services:
     volumes:
       - ./app:/app
     ports:
-      - "5000:80"
-    command: >
-      sh -c "echo kharayoscraper"
+      - "80:80"
     environment:
       -  FIREBASE_API_KEY=${FIREBASE_API_KEY}
       -  AUTH_DOMAIN=${AUTH_DOMAIN}
