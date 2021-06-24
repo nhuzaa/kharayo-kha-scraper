@@ -16,12 +16,9 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
  
 # Copy the project source code from the local host to the filesystem of the container at the working directory.
+EXPOSE 8000
 COPY ./app/scraper /app/
-WORKDIR /app/scraper
- 
+WORKDIR /app/scraper/api
 # Run the crawler when the container launches.
-# CMD [ "python3", "./go-spider.py" ]
-EXPOSE 80
-CMD ["python3", "./wakeup.py"]
-
-# CMD chmod u+x jobs.sh && ./jobs.sh
+CMD ["uvicorn", "main:app","--reload"]
+#CMD ["python3", "./wakeup.py"] # CMD chmod u+x jobs.sh && ./jobs.sh

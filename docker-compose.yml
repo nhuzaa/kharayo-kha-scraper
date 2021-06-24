@@ -7,7 +7,7 @@ services:
     volumes:
       - ./app:/app
     ports:
-      - "80:80"
+      - "8000:8000"
     environment:
       -  FIREBASE_API_KEY=${FIREBASE_API_KEY}
       -  AUTH_DOMAIN=${AUTH_DOMAIN}
