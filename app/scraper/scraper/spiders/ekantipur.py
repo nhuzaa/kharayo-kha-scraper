@@ -2,6 +2,7 @@ import scrapy
 
 from scraper.items import News
 
+#Ekantipur is the one of the most popular news portal in Nepal.
 class EkantipurSpider(scrapy.Spider):
     name = 'ekantipur'
     allowed_domains = ['ekantipur.com']
